@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>100-Level Class Sign-Up</title>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #25D366;
+    --border: #e5e5e3;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17181a;
+      --card: #222325;
+      --text: #f0f0f0;
+      --muted: #9a9a9a;
+      --border: #333436;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17181a;
+    --card: #222325;
+    --text: #f0f0f0;
+    --muted: #9a9a9a;
+    --border: #333436;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100%;
+    padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 440px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; font-size: 0.92rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  button {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  button:disabled { opacity: 0.5; cursor: default; }
+  .note { color: var(--muted); font-size: 0.82rem; margin-top: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>100-Level Class Sign-Up</h1>
+  <p class="sub">Type your name and tap the button — it'll open WhatsApp with your name ready to send.</p>
+
+  <div class="card">
+    <input type="text" id="name-input" placeholder="Your full name" autocomplete="name" maxlength="80">
+    <button id="send-btn">Send via WhatsApp</button>
+    <div class="note">You'll need WhatsApp installed to send it.</div>
+  </div>
+</div>
+
+<script>
+  const PHONE = "2349169289885"; // WhatsApp number, international format, no + or leading zero
+  const input = document.getElementById('name-input');
+  const btn = document.getElementById('send-btn');
+
+  btn.addEventListener('click', () => {
+    const name = input.value.trim();
+    if (!name) {
+      input.focus();
+      return;
+    }
+    const message = `100-Level Class Sign-Up: ${name}`;
+    const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') btn.click();
+  });
+</script>
+</body>
+</html>
